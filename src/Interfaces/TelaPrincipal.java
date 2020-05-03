@@ -79,6 +79,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnVeiculos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnVeiculos.setText("VEÍCULOS");
         btnVeiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVeiculosActionPerformed(evt);
+            }
+        });
         panelcadastro.add(btnVeiculos);
         btnVeiculos.setBounds(130, 20, 101, 38);
 
@@ -221,9 +226,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         TelaConsultar viewconsult = new TelaConsultar();
         
-        viewconsult.setVisible(true);
-        
+        viewconsult.setVisible(true);   
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVeiculosActionPerformed
+        // TODO add your handling code here:
+        TelaVeiculos viewVeiculo = new TelaVeiculos();
+        viewVeiculo.setVisible(true);
+    }//GEN-LAST:event_btnVeiculosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -114,9 +114,9 @@ public class IntegrantesGrupo extends javax.swing.JFrame {
 
     private void btnvoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnvoltarMouseClicked
         // TODO add your handling code here:
-        TelaPrincipal telap = new TelaPrincipal();
+        
         this.dispose();
-        telap.setVisible(true);
+        
     }//GEN-LAST:event_btnvoltarMouseClicked
 
     /**
