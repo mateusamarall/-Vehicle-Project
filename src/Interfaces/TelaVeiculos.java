@@ -8,6 +8,11 @@ package Interfaces;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Controller.VeiculosController;
+import Models.EstadosModel;
+import Models.LojasModel;
+import Models.MarcaModeloModel;
+import Models.VeiculosModel;
 
 /**
  *
@@ -66,17 +71,16 @@ public class TelaVeiculos extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lista = new javax.swing.JList<>();
+        lista = new javax.swing.JList<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 800));
         setMinimumSize(new java.awt.Dimension(800, 800));
         setResizable(false);
 
         jPanel1.setLayout(null);
 
         btnvoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic-back_97586.png"))); // NOI18N
-        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvoltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnvoltarMouseClicked(evt);
@@ -98,7 +102,7 @@ public class TelaVeiculos extends javax.swing.JFrame {
         btnEliminarVeiculo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnEliminarVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete_remove_bin_icon-icons.com_72400.png"))); // NOI18N
         btnEliminarVeiculo.setText("ELIMINAR UM VEICULO");
-        btnEliminarVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarVeiculoActionPerformed(evt);
@@ -109,14 +113,14 @@ public class TelaVeiculos extends javax.swing.JFrame {
 
         btnEditarVeiculo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnEditarVeiculo.setText("EDITAR UM VEÍCULO");
-        btnEditarVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarVeiculoActionPerformed(evt);
             }
         });
         jPanel1.add(btnEditarVeiculo);
-        btnEditarVeiculo.setBounds(400, 100, 290, 31);
+        btnEditarVeiculo.setBounds(400, 100, 290, 38);
 
         txtAbreviaturaEstado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.add(txtAbreviaturaEstado);
@@ -133,19 +137,19 @@ public class TelaVeiculos extends javax.swing.JFrame {
 
         btnInserirVeiculo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnInserirVeiculo.setText(" INSERIR");
-        btnInserirVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInserirVeiculo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnInserirVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirVeiculoActionPerformed(evt);
             }
         });
         jPanel1.add(btnInserirVeiculo);
-        btnInserirVeiculo.setBounds(30, 390, 280, 31);
+        btnInserirVeiculo.setBounds(30, 390, 280, 38);
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Veículos Já cadastrados: ");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(30, 450, 180, 17);
+        jLabel10.setBounds(410, 170, 180, 17);
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel11.setText("Marca:");
@@ -165,7 +169,7 @@ public class TelaVeiculos extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel14.setText("Placa:");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(40, 110, 39, 30);
+        jLabel14.setBounds(30, 110, 39, 30);
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel15.setText("Ano:");
@@ -194,29 +198,55 @@ public class TelaVeiculos extends javax.swing.JFrame {
 
         tabelaVeiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "PLACA", "MARCA", "PREÇO", "LOJA", "MODELO", "ANO", "ESTADO"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabelaVeiculo);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 480, 452, 402);
+        jScrollPane1.setBounds(410, 200, 453, 230);
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel20.setText("Abreviatura do Estado:");
         jPanel1.add(jLabel20);
         jLabel20.setBounds(20, 350, 150, 17);
 
-        lista.setModel(new javax.swing.AbstractListModel<String>() {
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(620, 170, 130, 80);
+
+        lista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "MARCA", "MODELO", "ESTADO", "LOJA" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         lista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -225,36 +255,21 @@ public class TelaVeiculos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(lista);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(620, 170, 270, 260);
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(730, 50, 129, 81);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 926, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(942, 495));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -281,14 +296,6 @@ public class TelaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarVeiculoActionPerformed
 
     private void btnInserirVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirVeiculoActionPerformed
-        // TODO add your handling code here:
-        txtmodeloVeiculo.setText("");
-        txtmarcaVeiculo.setText("");
-        txtprecoVeiculo.setText("");
-        txtlojaVeiculo.setText("");
-        txtPlacaVeiculo.setText("");
-        txtAnoVeiculo.setText("");
-        txtAbreviaturaEstado.setText("");
         
         txtPlacaVeiculo.requestFocus();
         if(txtPlacaVeiculo.getText().equals("")|| txtPlacaVeiculo== null || txtmodeloVeiculo.getText().equals("") || txtmodeloVeiculo == null ||
@@ -298,17 +305,17 @@ public class TelaVeiculos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Para Adicioanr um Veículo é necessário inserir os dados acima.");
 
         }
-        if(!(txtPlacaVeiculo.getText().equals("")|| txtPlacaVeiculo== null || txtmodeloVeiculo.getText().equals("") || txtmodeloVeiculo == null ||
-           txtmarcaVeiculo.getText().equals("")|| txtmarcaVeiculo == null|| txtprecoVeiculo.getText().equals("") || txtprecoVeiculo == null ||
-           txtlojaVeiculo.getText().equals("") || txtlojaVeiculo==null || txtAnoVeiculo.getText().equals("") || txtAnoVeiculo ==null||
-           txtAbreviaturaEstado.getText().equals("")|| txtAbreviaturaEstado==null)){
-            JOptionPane.showMessageDialog(null, "Estado Adicionado");
-            //adicionar a logica para adicionar um estado
-        
-
+        else{
+            MarcaModeloModel mmm = new MarcaModeloModel(txtmarcaVeiculo.getText(), txtmodeloVeiculo.getText());
+            EstadosModel em = new EstadosModel(txtAbreviaturaEstado.getText(), null);
+            LojasModel lm = new LojasModel(null, txtlojaVeiculo.getText());
+            VeiculosModel vm = new VeiculosModel(txtPlacaVeiculo.getText(), Float.parseFloat(txtprecoVeiculo.getText()),
+                    Integer.parseInt(txtAnoVeiculo.getText()), mmm.getMarca_nome(), lm, em, mmm);
             
+            VeiculosController vc = new VeiculosController();
+            vc.Store(vm, em, lm, mmm);
+            JOptionPane.showMessageDialog(null, "Estado Adicionado");
         }
-
     }//GEN-LAST:event_btnInserirVeiculoActionPerformed
 
     private void listaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaValueChanged
