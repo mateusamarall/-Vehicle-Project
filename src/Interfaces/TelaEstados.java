@@ -5,7 +5,11 @@
  */
 package Interfaces;
 
+import Controller.EstadosController;
+import Models.EstadosModel;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,7 +38,7 @@ public class TelaEstados extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtAberturaEstado = new javax.swing.JTextField();
+        txtSigla = new javax.swing.JTextField();
         txtNomeEstado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,11 +46,17 @@ public class TelaEstados extends javax.swing.JFrame {
         btnvoltar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaEstado = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        txtNovaSigla = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(700, 700));
         setMinimumSize(new java.awt.Dimension(700, 700));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -56,55 +66,55 @@ public class TelaEstados extends javax.swing.JFrame {
 
         btnInserir.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnInserir.setText(" INSERIR");
-        btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
             }
         });
         getContentPane().add(btnInserir);
-        btnInserir.setBounds(100, 200, 190, 31);
+        btnInserir.setBounds(100, 210, 190, 38);
 
         btnEditar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnEditar.setText("EDITAR UM ESTADO");
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
         getContentPane().add(btnEditar);
-        btnEditar.setBounds(340, 100, 290, 31);
+        btnEditar.setBounds(420, 100, 290, 38);
 
         btnEliminar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete_remove_bin_icon-icons.com_72400.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR UM ESTADO");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
         getContentPane().add(btnEliminar);
-        btnEliminar.setBounds(340, 40, 290, 30);
+        btnEliminar.setBounds(420, 40, 290, 40);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Nome do Estado:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 170, 108, 17);
+        jLabel2.setBounds(90, 180, 108, 17);
 
-        txtAberturaEstado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(txtAberturaEstado);
-        txtAberturaEstado.setBounds(160, 120, 130, 31);
+        txtSigla.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(txtSigla);
+        txtSigla.setBounds(220, 130, 130, 31);
 
         txtNomeEstado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         getContentPane().add(txtNomeEstado);
-        txtNomeEstado.setBounds(160, 160, 130, 31);
+        txtNomeEstado.setBounds(220, 170, 130, 31);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setText("Abreviatura do Estado:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(8, 130, 150, 17);
+        jLabel3.setBounds(50, 140, 150, 17);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Você Deseja:");
@@ -114,10 +124,10 @@ public class TelaEstados extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Estados Já cadastrados: ");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(30, 240, 180, 17);
+        jLabel10.setBounds(30, 260, 180, 17);
 
         btnvoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic-back_97586.png"))); // NOI18N
-        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvoltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnvoltarMouseClicked(evt);
@@ -128,10 +138,7 @@ public class TelaEstados extends javax.swing.JFrame {
 
         tabelaEstado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "ABREVIATURA DO ESTADO", "ESTADO"
@@ -140,15 +147,44 @@ public class TelaEstados extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaEstado);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 270, 460, 230);
+        jScrollPane1.setBounds(30, 290, 330, 130);
 
-        pack();
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("Nova Abreviatura do Estado:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(20, 100, 200, 20);
+
+        txtNovaSigla.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(txtNovaSigla);
+        txtNovaSigla.setBounds(220, 90, 130, 31);
+
+        setSize(new java.awt.Dimension(740, 482));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-       
+        if(txtSigla.getText().equals("")|| txtSigla == null || txtNomeEstado.getText().equals("") || txtNomeEstado == null || txtNovaSigla.getText().equalsIgnoreCase("") || txtNovaSigla.getText().equalsIgnoreCase(null)){
+            JOptionPane.showMessageDialog(null, "Para Atualizar um Estado é necessário inserir os dados acima.");
+        }else{
+            EstadosModel em = new EstadosModel(txtSigla.getText(), txtNomeEstado.getText());
+            EstadosController ec = new EstadosController();
+            
+            ec.Update(em, txtNovaSigla.getText());
+            JOptionPane.showMessageDialog(null, "Estado atualizado com sucesso ");
+            
+            ArrayList<EstadosModel> lista_em = new ArrayList<>();
+           
+            lista_em = ec.Index();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaEstado.getModel();
+            dtm.setRowCount(0);
+            tabelaEstado.setModel(dtm);
+            
+            for(int i =0; i < lista_em.size(); i++){
+                dtm.addRow(new Object[]{lista_em.get(i).getSigla(), lista_em.get(i).getNome()});
+            }
+
+            tabelaEstado.setModel(dtm);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnvoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnvoltarMouseClicked
@@ -159,37 +195,74 @@ public class TelaEstados extends javax.swing.JFrame {
     }//GEN-LAST:event_btnvoltarMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        
-        if(txtAberturaEstado.getText().equals("")|| txtAberturaEstado == null || txtNomeEstado.getText().equals("") || txtNomeEstado == null){
+        if(txtSigla.getText().equals("")|| txtSigla == null){
             JOptionPane.showMessageDialog(null, "Para remover um Estado é necessário inserir os dados ao lado.");
         }
-        
-        //adicionar a logica para excluir um estado
+        else{
+            EstadosModel em = new EstadosModel(txtSigla.getText(), null);
+            EstadosController ec = new EstadosController();
+            
+            ec.Destroy(em);
+            JOptionPane.showMessageDialog(null, "Estado deletado com sucesso ");
+            
+            ArrayList<EstadosModel> lista_em = new ArrayList<>();
+           
+            lista_em = ec.Index();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaEstado.getModel();
+            dtm.setRowCount(0);
+            tabelaEstado.setModel(dtm);
+            
+            for(int i =0; i < lista_em.size(); i++){
+                dtm.addRow(new Object[]{lista_em.get(i).getSigla(), lista_em.get(i).getNome()});
+            }
+
+            tabelaEstado.setModel(dtm);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
+
         
-        txtAberturaEstado.setText("");
-        txtNomeEstado.setText("");
-        txtAberturaEstado.requestFocus();
-        if(txtAberturaEstado.getText().equals("")|| txtAberturaEstado == null || txtNomeEstado.getText().equals("") || txtNomeEstado == null){
-            JOptionPane.showMessageDialog(null, "Para Adicioanr um Estado é necessário inserir os dados acima.");
-            
+        txtSigla.requestFocus();
+        if(txtSigla.getText().equalsIgnoreCase("")|| txtSigla.getText().equalsIgnoreCase(null) || txtNomeEstado.getText().equalsIgnoreCase("") || txtNomeEstado.getText().equalsIgnoreCase(null)){
+            JOptionPane.showMessageDialog(null, "Para Adicionar um Estado é necessário inserir os dados acima.");
         }
-        if(!(txtAberturaEstado.getText().equals("")|| txtAberturaEstado == null || txtNomeEstado.getText().equals("") || txtNomeEstado == null)){
-            JOptionPane.showMessageDialog(null, "Estado Adicionado");
+        else{
+            EstadosModel em = new EstadosModel(txtSigla.getText(), txtNomeEstado.getText());
+            EstadosController ec = new EstadosController();
             
-            //adicionar a logica para adicionar um estado
-          
+            ec.Store(em);
             
+            JOptionPane.showMessageDialog(null, "Estado inserido com sucesso ");
+            
+            ArrayList<EstadosModel> lista_em = new ArrayList<>();
+           
+            lista_em = ec.Index();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaEstado.getModel();
+            dtm.setRowCount(0);
+            tabelaEstado.setModel(dtm);
+            
+            for(int i =0; i < lista_em.size(); i++){
+                dtm.addRow(new Object[]{lista_em.get(i).getSigla(), lista_em.get(i).getNome()});
+            }
+
+            tabelaEstado.setModel(dtm);
         }
-        
-        
-        
-        
     }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ArrayList<EstadosModel> lista_em = new ArrayList<>();
+        
+        EstadosController ec = new EstadosController();
+        lista_em = ec.Index();
+        DefaultTableModel dtm = (DefaultTableModel) tabelaEstado.getModel();
+        
+        for(int i =0; i < lista_em.size(); i++){
+            dtm.addRow(new Object[]{lista_em.get(i).getSigla(), lista_em.get(i).getNome()});
+        }
+        
+        tabelaEstado.setModel(dtm);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -236,9 +309,11 @@ public class TelaEstados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaEstado;
-    private javax.swing.JTextField txtAberturaEstado;
     private javax.swing.JTextField txtNomeEstado;
+    private javax.swing.JTextField txtNovaSigla;
+    private javax.swing.JTextField txtSigla;
     // End of variables declaration//GEN-END:variables
 }

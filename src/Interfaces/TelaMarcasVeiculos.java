@@ -5,7 +5,11 @@
  */
 package Interfaces;
 
+import Controller.MarcaModeloController;
+import Models.MarcaModeloModel;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,10 +54,17 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
         txtEditarModelo = new javax.swing.JTextField();
         txtNovaMarca = new javax.swing.JTextField();
         btnvoltar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaModeloMarca = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(700, 700));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -64,31 +75,31 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Marca do carro:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(40, 140, 120, 17);
+        jLabel4.setBounds(40, 130, 120, 17);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Modelo do carro:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(40, 180, 107, 17);
+        jLabel2.setBounds(40, 170, 120, 17);
 
         txtMarcaCarro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         getContentPane().add(txtMarcaCarro);
-        txtMarcaCarro.setBounds(160, 130, 130, 31);
+        txtMarcaCarro.setBounds(170, 120, 130, 31);
 
         txtModeloCarro.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         getContentPane().add(txtModeloCarro);
-        txtModeloCarro.setBounds(160, 170, 130, 31);
+        txtModeloCarro.setBounds(170, 160, 130, 31);
 
         btnInserir.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnInserir.setText(" INSERIR");
-        btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
             }
         });
         getContentPane().add(btnInserir);
-        btnInserir.setBounds(90, 220, 190, 31);
+        btnInserir.setBounds(70, 220, 190, 38);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Você Deseja:");
@@ -97,26 +108,26 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
 
         btnEliminar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete_remove_bin_icon-icons.com_72400.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR UMA MARCA");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setText("ELIMINAR UMA MARCA E MODELO");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
         getContentPane().add(btnEliminar);
-        btnEliminar.setBounds(340, 40, 290, 30);
+        btnEliminar.setBounds(350, 50, 370, 40);
 
         btnEditar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnEditar.setText("EDITAR UMA MARCA");
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setText("EDITAR UMA MARCA OU MODELO");
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
         getContentPane().add(btnEditar);
-        btnEditar.setBounds(340, 100, 290, 31);
+        btnEditar.setBounds(350, 100, 370, 38);
 
         panelEditarMarca.setVisible(false);
         panelEditarMarca.setLayout(null);
@@ -148,31 +159,36 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
 
         btnEditarDados.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEditarDados.setText("EDITAR");
-        btnEditarDados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditarDados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEditarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarDadosActionPerformed(evt);
+            }
+        });
         panelEditarMarca.add(btnEditarDados);
-        btnEditarDados.setBounds(40, 230, 120, 25);
+        btnEditarDados.setBounds(40, 230, 120, 33);
 
         txtNovoModelo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelEditarMarca.add(txtNovoModelo);
-        txtNovoModelo.setBounds(160, 180, 90, 21);
+        txtNovoModelo.setBounds(160, 180, 90, 23);
 
         txtEditarMarca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelEditarMarca.add(txtEditarMarca);
-        txtEditarMarca.setBounds(160, 90, 90, 21);
+        txtEditarMarca.setBounds(160, 90, 90, 23);
 
         txtEditarModelo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelEditarMarca.add(txtEditarModelo);
-        txtEditarModelo.setBounds(160, 120, 90, 21);
+        txtEditarModelo.setBounds(160, 120, 90, 23);
 
         txtNovaMarca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelEditarMarca.add(txtNovaMarca);
-        txtNovaMarca.setBounds(160, 150, 90, 21);
+        txtNovaMarca.setBounds(160, 150, 90, 23);
 
         getContentPane().add(panelEditarMarca);
         panelEditarMarca.setBounds(340, 150, 360, 300);
 
         btnvoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic-back_97586.png"))); // NOI18N
-        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvoltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnvoltarMouseClicked(evt);
@@ -181,37 +197,94 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
         getContentPane().add(btnvoltar);
         btnvoltar.setBounds(22, 10, 60, 30);
 
-        pack();
+        tabelaModeloMarca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Marca", "Modelo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaModeloMarca);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 270, 280, 170);
+
+        setSize(new java.awt.Dimension(800, 495));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
 
-        txtMarcaCarro.setText("");
-        txtModeloCarro.setText("");
         txtMarcaCarro.requestFocus();
         if(txtMarcaCarro.getText().equals("")|| txtMarcaCarro == null || txtModeloCarro.getText().equals("") || txtModeloCarro == null){
-            JOptionPane.showMessageDialog(null, "Para Adicioanr uma Marca ou modelo é necessário inserir os dados acima.");
+            JOptionPane.showMessageDialog(null, "Para Adicioanr uma Marca e modelo é necessário inserir os dados acima.");
 
         }
-        if(!(txtMarcaCarro.getText().equals("")|| txtMarcaCarro == null || txtModeloCarro.getText().equals("") || txtModeloCarro == null)){
+        else{
+            MarcaModeloController MMC = new MarcaModeloController();
+            MarcaModeloModel MMM = new MarcaModeloModel(txtMarcaCarro.getText(), txtModeloCarro.getText());
+            
+            MMC.Store(MMM);
             JOptionPane.showMessageDialog(null, "Marca e Modelo Adicionado");
+            
+            ArrayList<MarcaModeloModel> lista_mmm = new ArrayList<>();
 
-            //adicionar a logica para adicionar um estado
+            DefaultTableModel dtm = (DefaultTableModel) tabelaModeloMarca.getModel();
+            lista_mmm = MMC.Index();
+            dtm.setRowCount(0);
+            tabelaModeloMarca.setModel(dtm);
 
+            for(int i = 0; i < lista_mmm.size(); i++){
+                dtm.addRow(new Object[]{lista_mmm.get(i).getMarca_nome(), lista_mmm.get(i).getModelo_nome()});
+            }
+
+            tabelaModeloMarca.setModel(dtm);
         }
 
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
 
-        if(txtMarcaCarro.getText().equals("")|| txtMarcaCarro == null || txtModeloCarro.getText().equals("") || txtModeloCarro == null){
+
+        if(txtModeloCarro.getText().equals("") || txtModeloCarro == null){
             JOptionPane.showMessageDialog(null, "Para remover uma Marca é necessário inserir os dados ao lado.");
+        }else{
+            MarcaModeloModel mmm = new MarcaModeloModel("", txtModeloCarro.getText());
+            MarcaModeloController mmc = new MarcaModeloController();
+            
+            mmc.Destroy(mmm);
+            JOptionPane.showMessageDialog(null, "Marca e modelo excluidos com sucesso ");
+            
+            ArrayList<MarcaModeloModel> lista_mmm = new ArrayList<>();
+
+            DefaultTableModel dtm = (DefaultTableModel) tabelaModeloMarca.getModel();
+            lista_mmm = mmc.Index();
+            dtm.setRowCount(0);
+            tabelaModeloMarca.setModel(dtm);
+
+            for(int i = 0; i < lista_mmm.size(); i++){
+                dtm.addRow(new Object[]{lista_mmm.get(i).getMarca_nome(), lista_mmm.get(i).getModelo_nome()});
+            }
+
+            tabelaModeloMarca.setModel(dtm);
         }
 
-        //adicionar a logica para excluir um estado
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnvoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnvoltarMouseClicked
@@ -226,6 +299,47 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
         panelEditarMarca.setVisible(true);
         
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ArrayList<MarcaModeloModel> lista_mmm = new ArrayList<>();
+        MarcaModeloController mmc = new MarcaModeloController();
+        
+        DefaultTableModel dtm = (DefaultTableModel) tabelaModeloMarca.getModel();
+        lista_mmm = mmc.Index();
+        
+        for(int i = 0; i < lista_mmm.size(); i++){
+            dtm.addRow(new Object[]{lista_mmm.get(i).getMarca_nome(), lista_mmm.get(i).getModelo_nome()});
+        }
+        
+        tabelaModeloMarca.setModel(dtm);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnEditarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDadosActionPerformed
+        if(txtEditarMarca.getText().equalsIgnoreCase(null) || txtEditarMarca.getText().equalsIgnoreCase("") || 
+           txtEditarModelo.getText().equalsIgnoreCase(null) || txtEditarModelo.getText().equalsIgnoreCase("") ||
+           txtNovaMarca.getText().equalsIgnoreCase(null) || txtNovaMarca.getText().equalsIgnoreCase("") ||
+           txtNovoModelo.getText().equalsIgnoreCase(null) || txtNovoModelo.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, "Erro, Para editar a marca e o modelo, complete os campos a cima ");
+        }else{
+            MarcaModeloModel mmm = new MarcaModeloModel(txtNovaMarca.getText(), txtNovoModelo.getText());
+            MarcaModeloController mmc = new MarcaModeloController();
+            mmc.Update(mmm, txtEditarModelo.getText());
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso ");
+            
+            ArrayList<MarcaModeloModel> lista_mmm = new ArrayList<>();
+            DefaultTableModel dtm = (DefaultTableModel) tabelaModeloMarca.getModel();
+            lista_mmm = mmc.Index();
+            dtm.setRowCount(0);
+            tabelaModeloMarca.setModel(dtm);
+
+            for(int i = 0; i < lista_mmm.size(); i++){
+                dtm.addRow(new Object[]{lista_mmm.get(i).getMarca_nome(), lista_mmm.get(i).getModelo_nome()});
+            }
+
+            tabelaModeloMarca.setModel(dtm);
+        }
+    }//GEN-LAST:event_btnEditarDadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,7 +391,9 @@ public class TelaMarcasVeiculos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelEditarMarca;
+    private javax.swing.JTable tabelaModeloMarca;
     private javax.swing.JTextField txtEditarMarca;
     private javax.swing.JTextField txtEditarModelo;
     private javax.swing.JTextField txtMarcaCarro;

@@ -34,17 +34,15 @@ public final class UserController {
         
         try{
             ps = conn.prepareStatement("SELECT * FROM user WHERE login = ? AND senha = ? ");
+            ps.setString(1, um.getLogin());
+            ps.setInt(2, um.getSenha());
+            
             rs = ps.executeQuery();
             
-            if(rs == null){
-                return false;
+            if(rs.next()){
+                return true;
             }else{
-                UserModel tmp = new UserModel(rs.getString("login"), rs.getString("Nome"), rs.getInt("senha"));
-                if(um.getLogin() != tmp.getLogin() || um.getSenha() != tmp.getSenha()){
-                    return false;
-                }else{
-                    return true;
-                }
+                return false;
             }
         }catch(SQLException err){
             throw new RuntimeException("Error in search a user "+ err);

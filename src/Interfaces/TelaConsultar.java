@@ -6,6 +6,13 @@
 package Interfaces;
 
 import javax.swing.JOptionPane;
+import Controller.VeiculosController;
+import Models.EstadosModel;
+import Models.MarcaModeloModel;
+import Models.LojasModel;
+import Models.VeiculosModel;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,19 +67,20 @@ public class TelaConsultar extends javax.swing.JFrame {
         panelPreco = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        txtconsultapreco = new javax.swing.JTextField();
+        txtconsultaprecomin = new javax.swing.JTextField();
         btnconsultapreco = new javax.swing.JButton();
-        txtconsultapreco2 = new javax.swing.JTextField();
+        txtconsultaprecomax = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaPreco = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1583, 780));
         setMinimumSize(new java.awt.Dimension(1583, 780));
         getContentPane().setLayout(null);
 
         btnvoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic-back_97586.png"))); // NOI18N
-        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvoltar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnvoltarMouseClicked(evt);
@@ -97,7 +105,7 @@ public class TelaConsultar extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Informações encontradas");
         panelPlaca.add(jLabel8);
-        jLabel8.setBounds(190, 80, 170, 17);
+        jLabel8.setBounds(30, 110, 170, 17);
 
         txtconsultplaca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelPlaca.add(txtconsultplaca);
@@ -105,21 +113,18 @@ public class TelaConsultar extends javax.swing.JFrame {
 
         btnconsultplaca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnconsultplaca.setText("CONSULTAR");
-        btnconsultplaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnconsultplaca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnconsultplaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnconsultplacaActionPerformed(evt);
             }
         });
         panelPlaca.add(btnconsultplaca);
-        btnconsultplaca.setBounds(30, 80, 110, 23);
+        btnconsultplaca.setBounds(190, 40, 110, 31);
 
         tabelaPlaca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "MODELO", "MARCA", "PREÇO", "LOJA", "PLACA", "ANO", "ESTADO"
@@ -128,32 +133,32 @@ public class TelaConsultar extends javax.swing.JFrame {
         jScrollPane9.setViewportView(tabelaPlaca);
 
         panelPlaca.add(jScrollPane9);
-        jScrollPane9.setBounds(70, 110, 370, 130);
+        jScrollPane9.setBounds(30, 140, 390, 90);
 
         getContentPane().add(panelPlaca);
-        panelPlaca.setBounds(340, 60, 440, 240);
+        panelPlaca.setBounds(160, 70, 440, 240);
 
         consultaPlaca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         consultaPlaca.setText("PLACA");
-        consultaPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultaPlaca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         consultaPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultaPlacaActionPerformed(evt);
             }
         });
         getContentPane().add(consultaPlaca);
-        consultaPlaca.setBounds(240, 150, 90, 25);
+        consultaPlaca.setBounds(20, 150, 90, 33);
 
         consultaPreco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         consultaPreco.setText("PREÇO");
-        consultaPreco.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultaPreco.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         consultaPreco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultaPrecoActionPerformed(evt);
             }
         });
         getContentPane().add(consultaPreco);
-        consultaPreco.setBounds(950, 510, 100, 25);
+        consultaPreco.setBounds(620, 510, 100, 33);
 
         consultaMarca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         consultaMarca.setText("MARCA");
@@ -163,18 +168,18 @@ public class TelaConsultar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(consultaMarca);
-        consultaMarca.setBounds(960, 170, 90, 25);
+        consultaMarca.setBounds(640, 220, 90, 33);
 
         consultaModelo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         consultaModelo.setText("MODELO");
-        consultaModelo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultaModelo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         consultaModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultaModeloActionPerformed(evt);
             }
         });
         getContentPane().add(consultaModelo);
-        consultaModelo.setBounds(240, 480, 100, 25);
+        consultaModelo.setBounds(20, 480, 100, 33);
 
         panelMarca.setVisible(false);
         panelMarca.setLayout(null);
@@ -187,29 +192,31 @@ public class TelaConsultar extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel14.setText("Informações encontradas");
         panelMarca.add(jLabel14);
-        jLabel14.setBounds(190, 80, 170, 17);
+        jLabel14.setBounds(50, 90, 170, 17);
 
         txtconsultamarca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtconsultamarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtconsultamarcaActionPerformed(evt);
+            }
+        });
         panelMarca.add(txtconsultamarca);
         txtconsultamarca.setBounds(30, 50, 120, 20);
 
         btnconsultamarca.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnconsultamarca.setText("CONSULTAR");
-        btnconsultamarca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnconsultamarca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnconsultamarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnconsultamarcaActionPerformed(evt);
             }
         });
         panelMarca.add(btnconsultamarca);
-        btnconsultamarca.setBounds(30, 80, 110, 23);
+        btnconsultamarca.setBounds(170, 40, 110, 31);
 
         tabelaMarca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "MODELO", "MARCA", "PREÇO", "LOJA", "PLACA", "ANO", "ESTADO"
@@ -218,10 +225,10 @@ public class TelaConsultar extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tabelaMarca);
 
         panelMarca.add(jScrollPane4);
-        jScrollPane4.setBounds(70, 110, 370, 130);
+        jScrollPane4.setBounds(30, 140, 370, 100);
 
         getContentPane().add(panelMarca);
-        panelMarca.setBounds(1060, 80, 450, 240);
+        panelMarca.setBounds(750, 110, 450, 240);
 
         panelModelo.setVisible(false);
         panelModelo.setLayout(null);
@@ -234,7 +241,7 @@ public class TelaConsultar extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel16.setText("Informações encontradas");
         panelModelo.add(jLabel16);
-        jLabel16.setBounds(190, 80, 170, 17);
+        jLabel16.setBounds(40, 90, 170, 17);
 
         txtconsultamodelo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         panelModelo.add(txtconsultamodelo);
@@ -242,21 +249,18 @@ public class TelaConsultar extends javax.swing.JFrame {
 
         btnconsultamodelo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnconsultamodelo.setText("CONSULTAR");
-        btnconsultamodelo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnconsultamodelo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnconsultamodelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnconsultamodeloActionPerformed(evt);
             }
         });
         panelModelo.add(btnconsultamodelo);
-        btnconsultamodelo.setBounds(30, 80, 110, 23);
+        btnconsultamodelo.setBounds(170, 40, 110, 31);
 
         tabelaModelo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "MODELO", "MARCA", "PREÇO", "LOJA", "PLACA", "ANO", "ESTADO"
@@ -265,10 +269,10 @@ public class TelaConsultar extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tabelaModelo);
 
         panelModelo.add(jScrollPane5);
-        jScrollPane5.setBounds(80, 110, 370, 130);
+        jScrollPane5.setBounds(40, 120, 370, 110);
 
         getContentPane().add(panelModelo);
-        panelModelo.setBounds(340, 390, 450, 240);
+        panelModelo.setBounds(180, 380, 450, 240);
 
         panelPreco.setVisible(false);
         panelPreco.setLayout(null);
@@ -281,31 +285,28 @@ public class TelaConsultar extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel18.setText("Informações encontradas");
         panelPreco.add(jLabel18);
-        jLabel18.setBounds(190, 80, 170, 17);
+        jLabel18.setBounds(280, 110, 170, 17);
 
-        txtconsultapreco.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        panelPreco.add(txtconsultapreco);
-        txtconsultapreco.setBounds(30, 50, 120, 20);
+        txtconsultaprecomin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        panelPreco.add(txtconsultaprecomin);
+        txtconsultaprecomin.setBounds(120, 50, 120, 20);
 
         btnconsultapreco.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnconsultapreco.setText("CONSULTAR");
-        btnconsultapreco.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnconsultapreco.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnconsultapreco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnconsultaprecoActionPerformed(evt);
             }
         });
         panelPreco.add(btnconsultapreco);
-        btnconsultapreco.setBounds(30, 110, 110, 23);
-        panelPreco.add(txtconsultapreco2);
-        txtconsultapreco2.setBounds(30, 80, 120, 20);
+        btnconsultapreco.setBounds(290, 60, 110, 31);
+        panelPreco.add(txtconsultaprecomax);
+        txtconsultaprecomax.setBounds(120, 80, 120, 24);
 
         tabelaPreco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "MODELO", "MARCA", "PREÇO", "LOJA", "PLACA", "ANO", "ESTADO"
@@ -314,10 +315,18 @@ public class TelaConsultar extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabelaPreco);
 
         panelPreco.add(jScrollPane3);
-        jScrollPane3.setBounds(80, 140, 440, 160);
+        jScrollPane3.setBounds(20, 140, 440, 120);
+
+        jLabel2.setText("Preço maximo");
+        panelPreco.add(jLabel2);
+        jLabel2.setBounds(20, 90, 90, 10);
+
+        jLabel3.setText("Preço minimo");
+        panelPreco.add(jLabel3);
+        jLabel3.setBounds(20, 50, 90, 16);
 
         getContentPane().add(panelPreco);
-        panelPreco.setBounds(1060, 420, 520, 300);
+        panelPreco.setBounds(740, 370, 540, 260);
 
         pack();
         setLocationRelativeTo(null);
@@ -353,34 +362,124 @@ public class TelaConsultar extends javax.swing.JFrame {
     }//GEN-LAST:event_consultaPrecoActionPerformed
 
     private void btnconsultplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultplacaActionPerformed
-        // TODO add your handling code here:
         
         if(txtconsultplaca.getText().equals("") || txtconsultplaca==null){
             JOptionPane.showMessageDialog(null, "Placa não encontrada ou inexistente. Verifique se foi digitado corretamente");
+        }else{
+            VeiculosController vc = new VeiculosController();
+            VeiculosModel tmp = new VeiculosModel(txtconsultplaca.getText(), 0f, 0, null, null, null, null);
+            ArrayList<VeiculosModel> Lista_veiculos = new ArrayList<>();
+            Lista_veiculos = vc.getCarsByBoard(tmp);
+            DefaultTableModel dtm = (DefaultTableModel) tabelaPlaca.getModel();
+            dtm.setRowCount(0);
+            tabelaPlaca.setModel(dtm);
+            
+            for(int i = 0; i < Lista_veiculos.size(); i++){
+                dtm.addRow(new Object[]{Lista_veiculos.get(i).getModelo_nome().getModelo_nome(),
+                    Lista_veiculos.get(i).getMarca_nome(),
+                    Lista_veiculos.get(i).getPreco(),
+                    Lista_veiculos.get(i).getLoja_id().getLoja_id(),
+                    Lista_veiculos.get(i).getPlaca(),
+                    Lista_veiculos.get(i).getAno(),
+                    Lista_veiculos.get(i).getEstado().getSigla()
+                });
+            }
+            
+            tabelaPlaca.setModel(dtm);
         }
-        
     }//GEN-LAST:event_btnconsultplacaActionPerformed
 
     private void btnconsultamodeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultamodeloActionPerformed
         // TODO add your handling code here:
          if(txtconsultamodelo.getText().equals("") || txtconsultamodelo==null){
             JOptionPane.showMessageDialog(null, "Modelo não encontrado ou inexistente. Verifique se foi digitado corretamente");
+        }else{
+             VeiculosController vc = new VeiculosController();
+            MarcaModeloModel mmm = new MarcaModeloModel(null, txtconsultamodelo.getText());
+            ArrayList<VeiculosModel> Lista_veiculos = new ArrayList<>();
+            Lista_veiculos = vc.getCarsByModel(mmm);
+            DefaultTableModel dtm = (DefaultTableModel) tabelaModelo.getModel();
+            
+            dtm.setRowCount(0);
+            tabelaModelo.setModel(dtm);
+            
+            for(int i = 0; i < Lista_veiculos.size(); i++){
+                dtm.addRow(new Object[]{Lista_veiculos.get(i).getModelo_nome().getModelo_nome(),
+                    Lista_veiculos.get(i).getMarca_nome(),
+                    Lista_veiculos.get(i).getPreco(),
+                    Lista_veiculos.get(i).getLoja_id().getLoja_id(),
+                    Lista_veiculos.get(i).getPlaca(),
+                    Lista_veiculos.get(i).getAno(),
+                    Lista_veiculos.get(i).getEstado().getSigla()
+                });
+            }
+            
+            tabelaModelo.setModel(dtm);
         }
     }//GEN-LAST:event_btnconsultamodeloActionPerformed
 
     private void btnconsultamarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultamarcaActionPerformed
-        // TODO add your handling code here:
+       
         if(txtconsultamarca.getText().equals("") || txtconsultamarca==null){
             JOptionPane.showMessageDialog(null, "Marca não encontrada ou inexistente. Verifique se foi digitado corretamente");
+        }else{
+            VeiculosController vc = new VeiculosController();
+            MarcaModeloModel mmm = new MarcaModeloModel(txtconsultamarca.getText(), null);
+            ArrayList<VeiculosModel> Lista_veiculos = new ArrayList<>();
+            Lista_veiculos = vc.getCarsByBrand(mmm);
+            DefaultTableModel dtm = (DefaultTableModel) tabelaMarca.getModel();
+            
+            dtm.setRowCount(0);
+            tabelaMarca.setModel(dtm);
+            
+            for(int i = 0; i < Lista_veiculos.size(); i++){
+                dtm.addRow(new Object[]{Lista_veiculos.get(i).getModelo_nome().getModelo_nome(),
+                    Lista_veiculos.get(i).getMarca_nome(),
+                    Lista_veiculos.get(i).getPreco(),
+                    Lista_veiculos.get(i).getLoja_id().getLoja_id(),
+                    Lista_veiculos.get(i).getPlaca(),
+                    Lista_veiculos.get(i).getAno(),
+                    Lista_veiculos.get(i).getEstado().getSigla()
+                });
+            }
+            
+            tabelaMarca.setModel(dtm);
         }
     }//GEN-LAST:event_btnconsultamarcaActionPerformed
 
     private void btnconsultaprecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultaprecoActionPerformed
         // TODO add your handling code here:
-        if(txtconsultapreco.getText().equals("") || txtconsultapreco==null || txtconsultapreco2.getText().equals("") || txtconsultapreco2==null){
+        if(Float.parseFloat(txtconsultaprecomin.getText()) < 0 || Float.parseFloat(txtconsultaprecomax.getText()) < 0 ||
+           txtconsultaprecomin.getText().equalsIgnoreCase(null) || txtconsultaprecomin.getText().equalsIgnoreCase("") ||
+                txtconsultaprecomax.getText().equalsIgnoreCase(null) || txtconsultaprecomax.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null, "Não foi possível encontrar nessa faixetaria. digite novamente");
+        }else{
+            VeiculosController vc = new VeiculosController();
+            ArrayList<VeiculosModel> Lista_veiculos = new ArrayList<>();
+            Lista_veiculos = vc.getCarsByPrice(Float.parseFloat(txtconsultaprecomin.getText()), Float.parseFloat(txtconsultaprecomax.getText()));
+            DefaultTableModel dtm = (DefaultTableModel) tabelaPreco.getModel();
+            
+            dtm.setRowCount(0);
+            tabelaPreco.setModel(dtm);
+            
+            for(int i = 0; i < Lista_veiculos.size(); i++){
+                dtm.addRow(new Object[]{Lista_veiculos.get(i).getModelo_nome().getModelo_nome(),
+                    Lista_veiculos.get(i).getMarca_nome(),
+                    Lista_veiculos.get(i).getPreco(),
+                    Lista_veiculos.get(i).getLoja_id().getLoja_id(),
+                    Lista_veiculos.get(i).getPlaca(),
+                    Lista_veiculos.get(i).getAno(),
+                    Lista_veiculos.get(i).getEstado().getSigla()
+                });
+            }
+            
+            tabelaPreco.setModel(dtm);
         }
     }//GEN-LAST:event_btnconsultaprecoActionPerformed
+
+    private void txtconsultamarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtconsultamarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtconsultamarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -434,6 +533,8 @@ public class TelaConsultar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane3;
@@ -450,8 +551,8 @@ public class TelaConsultar extends javax.swing.JFrame {
     private javax.swing.JTable tabelaPreco;
     private javax.swing.JTextField txtconsultamarca;
     private javax.swing.JTextField txtconsultamodelo;
-    private javax.swing.JTextField txtconsultapreco;
-    private javax.swing.JTextField txtconsultapreco2;
+    private javax.swing.JTextField txtconsultaprecomax;
+    private javax.swing.JTextField txtconsultaprecomin;
     private javax.swing.JTextField txtconsultplaca;
     // End of variables declaration//GEN-END:variables
 }

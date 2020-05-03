@@ -14,7 +14,7 @@ public final class EstadosController {
         Connection conn = conf.getConnection();
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("INSERT INTO estado (sigla, nome) values (?,?)");
+            ps = conn.prepareStatement("INSERT INTO estados (sigla, nome) values (?,?)");
             ps.setString(1, em.getSigla());
             ps.setString(2, em.getNome());
             ps.executeUpdate();
@@ -49,13 +49,13 @@ public final class EstadosController {
         }
     }
     
-    public void Update(EstadosModel em){
+    public void Update(EstadosModel em, String NovaSigla){
         Connection conn = conf.getConnection();
         PreparedStatement ps = null;
         
         try{
             ps = conn.prepareStatement("UPDATE estados SET sigla = ?, nome = ? WHERE sigla = ?");
-            ps.setString(1, em.getSigla());
+            ps.setString(1, NovaSigla);
             ps.setString(2, em.getNome());
             ps.setString(3, em.getSigla());
             ps.executeUpdate();

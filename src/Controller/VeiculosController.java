@@ -29,7 +29,7 @@ public final class VeiculosController {
             ps.executeUpdate();
             
         }catch(SQLException err){
-            throw new RuntimeException("Error in insert MARCA_MOD " +  err);
+            throw new RuntimeException("Error in insert Veiculos " +  err);
         }finally{
             conf.closeConnection(conn, ps);
         }

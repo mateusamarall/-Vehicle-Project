@@ -6,6 +6,8 @@
 package Interfaces;
 
 import javax.swing.JOptionPane;
+import Controller.UserController;
+import Models.UserModel;
 
 /**
  *
@@ -30,9 +32,9 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtrgm = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
         btnlogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,24 +48,24 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(50, 130, 70, 22);
 
-        txtpassword.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(txtpassword);
-        txtpassword.setBounds(130, 120, 180, 40);
+        txtPassword.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(txtPassword);
+        txtPassword.setBounds(130, 120, 180, 40);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel3.setText("RGM:");
+        jLabel3.setText("LOGIN: ");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(60, 60, 60, 22);
+        jLabel3.setBounds(50, 60, 70, 22);
 
-        txtrgm.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        getContentPane().add(txtrgm);
-        txtrgm.setBounds(130, 50, 180, 40);
+        txtLogin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(txtLogin);
+        txtLogin.setBounds(130, 50, 180, 40);
 
         btnlogin.setBackground(new java.awt.Color(255, 255, 255));
         btnlogin.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnlogin.setText("LOG IN");
         btnlogin.setBorder(null);
-        btnlogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnlogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnloginActionPerformed(evt);
@@ -78,21 +80,26 @@ public class Login extends javax.swing.JFrame {
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
-        if(txtrgm.getText().equals("") || txtrgm == null || txtpassword.getText().equals("") || txtpassword== null){
+        if(txtLogin.getText().equals("") || txtLogin == null || txtPassword.getText().equals("") || txtPassword== null){
             
-            txtrgm.setText("");
-            txtpassword.setText("");
-            txtrgm.requestFocus();
+            txtLogin.setText("");
+            txtPassword.setText("");
+            txtLogin.requestFocus();
             
             JOptionPane.showMessageDialog(null, "Usuário não encontrado digite novamente");
             
+        }else{
+            UserModel um = new UserModel(txtLogin.getText(), "", Integer.parseInt(txtPassword.getText()));
+            UserController uc = new UserController();
+            boolean Session = uc.Show(um);
+            if(!Session){
+                JOptionPane.showMessageDialog(null, "Credencias de login errada, tente novamente ");
+            }else{
+                TelaPrincipal telap = new TelaPrincipal();
+                this.dispose();
+                telap.setVisible(true);
+            }
         }
-        if(!(txtrgm.getText().equals("") || txtrgm == null || txtpassword.getText().equals("") || txtpassword== null)){
-            TelaPrincipal telap = new TelaPrincipal();
-            this.dispose();
-        telap.setVisible(true);
-        }
-        
     }//GEN-LAST:event_btnloginActionPerformed
 
     /**
@@ -134,7 +141,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnlogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtpassword;
-    private javax.swing.JTextField txtrgm;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

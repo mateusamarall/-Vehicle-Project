@@ -49,7 +49,7 @@ public final class MarcaModeloController {
         }
     }
     
-    public void Update(MarcaModeloModel mmm){
+    public void Update(MarcaModeloModel mmm, String key){
         Connection conn = conf.getConnection();
         PreparedStatement ps = null;
         
@@ -57,11 +57,12 @@ public final class MarcaModeloController {
             ps = conn.prepareStatement("UPDATE marca_mod SET marca_nome = ?, modelo_nome = ? WHERE modelo_nome = ?");
             ps.setString(1, mmm.getMarca_nome());
             ps.setString(2, mmm.getModelo_nome());
-            ps.setString(3, mmm.getModelo_nome());
+            ps.setString(3, key);
             ps.executeUpdate();
         }catch(SQLException err){
             throw new RuntimeException("Error in update MARCA_MOD " + err);
         }finally{
+            conf.closeConnection(conn, ps);
         }
     }
     
