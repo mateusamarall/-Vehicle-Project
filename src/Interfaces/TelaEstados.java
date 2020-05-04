@@ -169,7 +169,7 @@ public class TelaEstados extends javax.swing.JFrame {
             EstadosModel em = new EstadosModel(txtSigla.getText(), txtNomeEstado.getText());
             EstadosController ec = new EstadosController();
             
-            ec.Update(em, txtNovaSigla.getText());
+            ec.Update(em, txtNovaSigla.getText().toUpperCase());
             JOptionPane.showMessageDialog(null, "Estado atualizado com sucesso ");
             
             ArrayList<EstadosModel> lista_em = new ArrayList<>();
@@ -199,7 +199,7 @@ public class TelaEstados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Para remover um Estado é necessário inserir os dados ao lado.");
         }
         else{
-            EstadosModel em = new EstadosModel(txtSigla.getText(), null);
+            EstadosModel em = new EstadosModel(txtSigla.getText().toUpperCase(), null);
             EstadosController ec = new EstadosController();
             
             ec.Destroy(em);
@@ -228,7 +228,7 @@ public class TelaEstados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Para Adicionar um Estado é necessário inserir os dados acima.");
         }
         else{
-            EstadosModel em = new EstadosModel(txtSigla.getText(), txtNomeEstado.getText());
+            EstadosModel em = new EstadosModel(txtSigla.getText().toUpperCase(), txtNomeEstado.getText());
             EstadosController ec = new EstadosController();
             
             ec.Store(em);

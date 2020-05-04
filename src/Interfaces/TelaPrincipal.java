@@ -85,7 +85,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         panelcadastro.add(btnVeiculos);
-        btnVeiculos.setBounds(130, 20, 98, 38);
+        btnVeiculos.setBounds(90, 20, 120, 38);
 
         btnEstados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEstados.setText("ESTADOS");
@@ -96,7 +96,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         panelcadastro.add(btnEstados);
-        btnEstados.setBounds(280, 20, 90, 38);
+        btnEstados.setBounds(250, 20, 120, 38);
 
         btnMarcasVeiculos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnMarcasVeiculos.setText("MARCAS MODELO");
@@ -107,10 +107,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         panelcadastro.add(btnMarcasVeiculos);
-        btnMarcasVeiculos.setBounds(410, 20, 152, 39);
+        btnMarcasVeiculos.setBounds(400, 20, 190, 39);
 
         getContentPane().add(panelcadastro);
-        panelcadastro.setBounds(0, 110, 680, 80);
+        panelcadastro.setBounds(0, 110, 800, 80);
 
         btnAjuda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnAjuda.setText("AJUDA");
@@ -126,7 +126,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         btnAutores.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnAutores.setText("Autores do Progrma");
+        btnAutores.setText("Autores do programa");
         btnAutores.setFocusable(false);
         btnAutores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAutores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -173,7 +173,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().add(btnCadastrar);
         btnCadastrar.setBounds(250, 60, 190, 38);
 
-        setSize(new java.awt.Dimension(696, 233));
+        setSize(new java.awt.Dimension(712, 232));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

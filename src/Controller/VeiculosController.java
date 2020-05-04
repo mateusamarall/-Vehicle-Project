@@ -55,25 +55,25 @@ public final class VeiculosController {
             return lista;
             
         }catch(SQLException err){
-            throw new RuntimeException("Error get datas of VEICULOS " + err);
+            throw new RuntimeException("Error to insert a new vehicle "+ err);
         }finally{
             conf.closeConnection(conn, ps, rs);
         }
     }
     
-    public void Update(VeiculosModel vm, EstadosModel em, LojasModel lm, MarcaModeloModel mmm){
+    public void Update(VeiculosModel vm, EstadosModel em, LojasModel lm, MarcaModeloModel mmm, String NovaPlaca){
         Connection conn = conf.getConnection();
         PreparedStatement ps = null;
         
         try{
             ps = conn.prepareStatement("UPDATE veiculos SET placa = ?, preco = ?, ano = ? , marca_nome = ?, estado = ?, modelo_nome = ?, loja_id = ? WHERE placa = ?");
-            ps.setString(1, vm.getPlaca());
+            ps.setString(1, NovaPlaca);
             ps.setFloat(2, vm.getPreco());
             ps.setInt(3, vm.getAno());
             ps.setString(4, vm.getMarca_nome());
             ps.setString(5, em.getSigla());
             ps.setString(6, mmm.getModelo_nome());
-            ps.setString(7, lm.getLoja_nome());
+            ps.setString(7, lm.getLoja_id());
             ps.setString(8, vm.getPlaca());
             
             ps.executeUpdate();

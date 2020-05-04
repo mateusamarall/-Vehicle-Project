@@ -80,4 +80,52 @@ public final class MarcaModeloController {
             conf.closeConnection(conn, ps);
         }
     }
+    
+    public ArrayList<MarcaModeloModel> Index(String marca){
+        Connection conn = conf.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            ps = conn.prepareStatement("SELECT * FROM marca_mod WHERE marca_nome = ? ");
+            ps.setString(1, marca);
+            rs = ps.executeQuery();
+            
+            ArrayList<MarcaModeloModel> lista = new ArrayList<>();
+            while(rs.next()){
+                MarcaModeloModel tmp = new MarcaModeloModel(rs.getString("marca_nome"), rs.getString("modelo_nome"));
+                lista.add(tmp);
+            }
+            
+            return lista;
+            
+        }catch(SQLException err){
+            throw new RuntimeException("Error get datas of MARCA_MOD " + err);
+        }finally{
+            conf.closeConnection(conn, ps, rs);
+        }
+    }
+    
+    public ArrayList<MarcaModeloModel> Show(String modelo){
+        Connection conn = conf.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            ps = conn.prepareStatement("SELECT DISTINCT(*) FROM marca_mod WHERE modelo_nome = ? ");
+            ps.setString(1, modelo);
+            rs = ps.executeQuery();
+            
+            ArrayList<MarcaModeloModel> lista = new ArrayList<>();
+            while(rs.next()){
+                MarcaModeloModel tmp = new MarcaModeloModel(rs.getString("marca_nome"), rs.getString("modelo_nome"));
+                lista.add(tmp);
+            }
+            
+            return lista;
+            
+        }catch(SQLException err){
+            throw new RuntimeException("Error get datas of MARCA_MOD " + err);
+        }finally{
+            conf.closeConnection(conn, ps, rs);
+        }
+    }
 }
