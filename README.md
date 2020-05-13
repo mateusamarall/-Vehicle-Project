@@ -1,5 +1,5 @@
 
-# #:racing_car: Projeto-Veiculo 
+## 🏎 Projeto-Veiculo 
 Projeto interdisciplinar da faculdade sobre cadastro e consulta de veículos, usando a linguagem Java consultando banco de dados MySQL. 
 
 ## 🎯 Começando
